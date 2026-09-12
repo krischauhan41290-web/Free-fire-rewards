@@ -67,17 +67,20 @@ ${phone}
         })
       }
     );
+    if (!telegramResult.ok) {
+  console.error("Telegram API error:", telegramResult);
+
+  return res.status(500).json({
+    success: false,
+    message: `Telegram error: ${
+      telegramResult.description || "Unknown Telegram error"
+    }`
+  });
+    }
 
     const telegramResult = await telegramResponse.json();
 
-    if (!telegramResult.ok) {
-      console.error("Telegram API error:", telegramResult);
-
-      return res.status(500).json({
-        success: false,
-        message: "Telegram notification failed"
-      });
-    }
+    
 
     return res.status(200).json({
       success: true,
